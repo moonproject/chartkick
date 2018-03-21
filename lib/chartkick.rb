@@ -1,7 +1,7 @@
-require "chartkick/version"
-require "chartkick/helper"
-require "chartkick/rails" if defined?(Rails)
-require "chartkick/sinatra" if defined?(Sinatra)
+require 'chartkick/version'
+require 'chartkick/helper'
+require 'chartkick/rails' if defined?(Rails)
+require 'chartkick/sinatra' if defined?(Sinatra)
 
 module Chartkick
   class << self
@@ -17,7 +17,7 @@ module Enumerable
   def chart_json
     if is_a?(Hash) && (key = keys.first) && key.is_a?(Array) && key.size == 2
       group_by { |k, _v| k[0] }.map do |name, data|
-        {name: name, data: data.map { |k, v| [k[1], v] }}
+        { name: name, data: data.map { |k, v| [k[1], v] } }
       end
     else
       self
