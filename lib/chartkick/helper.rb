@@ -28,7 +28,14 @@ module Chartkick
     end
 
     def geo_chart(data_source, options = {})
-      data_source.map! { |iso| ISO3166::Country.find_country_by_alpha3(iso) } if options['iso']
+      if options['iso']
+        new_data_source = {}
+        data_source.each do |iso, value|
+          new_data_source[ISO3166::Country.find_country_by_alpha3(iso)] = value
+        end
+        data_source = new_data_source
+        options.delete 'iso'
+      end
       chartkick_chart 'GeoChart', data_source, options
     end
 
